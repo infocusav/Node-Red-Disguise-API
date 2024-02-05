@@ -1,0 +1,245 @@
+[
+    {
+        "id": "ead061f8ea5ed2db",
+        "type": "tab",
+        "label": "Disguise API",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "106a5116146ffee4",
+        "type": "http request",
+        "z": "ead061f8ea5ed2db",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "body",
+        "url": "http://192.168.13.101/api/session/status/health",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 450,
+        "y": 120,
+        "wires": [
+            [
+                "525851e45102a79f",
+                "15288b4321ff54a7",
+                "acfa1cc36df5b8ed"
+            ]
+        ]
+    },
+    {
+        "id": "be153b7350ebdb84",
+        "type": "inject",
+        "z": "ead061f8ea5ed2db",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "3",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "106a5116146ffee4"
+            ]
+        ]
+    },
+    {
+        "id": "15288b4321ff54a7",
+        "type": "debug",
+        "z": "ead061f8ea5ed2db",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "525851e45102a79f",
+        "type": "function",
+        "z": "ead061f8ea5ed2db",
+        "name": "function 1",
+        "func": "\nvar trueMsg = { payload: true };\nvar falseMsg = { payload: false };\n\n\nif (msg.payload.result[0].status.states[0].severity.status==\"ready\")\n{\n    return falseMsg; \n}\nelse{\n        return trueMsg; \n\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 280,
+        "wires": [
+            [
+                "da1bb636d38701c9",
+                "4c880fa8a974177f"
+            ]
+        ]
+    },
+    {
+        "id": "4c880fa8a974177f",
+        "type": "debug",
+        "z": "ead061f8ea5ed2db",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "da1bb636d38701c9",
+        "type": "ui_led",
+        "z": "ead061f8ea5ed2db",
+        "order": 6,
+        "group": "5eaca1a3.15e28",
+        "width": "4",
+        "height": "1",
+        "label": "Server 101 Alive",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Server 101 Alive",
+        "x": 760,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "acfa1cc36df5b8ed",
+        "type": "function",
+        "z": "ead061f8ea5ed2db",
+        "name": "function 2",
+        "func": "\nvar trueMsg = { payload: true };\nvar falseMsg = { payload: false };\nvar warningMsg = { payload: 'warning' };\n\n\nif (msg.payload.result[1].status.states[0].severity==\"ready\")\n{\n    return trueMsg; \n}\nelse if(msg.payload.result[1].status.states[0].severity==\"warning\")\n{\n    return warningMsg; \n\n}\nelse\n{\n    return falseMsg;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 400,
+        "wires": [
+            [
+                "97622c8ef52ba09e",
+                "b0cf28243708563e"
+            ]
+        ]
+    },
+    {
+        "id": "97622c8ef52ba09e",
+        "type": "ui_led",
+        "z": "ead061f8ea5ed2db",
+        "order": 6,
+        "group": "5eaca1a3.15e28",
+        "width": "4",
+        "height": "1",
+        "label": "Server 102 Alive",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#ff9500",
+                "value": "warning",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Server 102 Alive",
+        "x": 720,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "b0cf28243708563e",
+        "type": "debug",
+        "z": "ead061f8ea5ed2db",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "5eaca1a3.15e28",
+        "type": "ui_group",
+        "name": "SERVER RACK",
+        "tab": "2806402b.f11e7",
+        "order": 1,
+        "disp": true,
+        "width": 4,
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "2806402b.f11e7",
+        "type": "ui_tab",
+        "name": "Quick Overview",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]
