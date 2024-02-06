@@ -1,6 +1,6 @@
 Basic Node-Red Flow example showing how to query Disguise API and trigger an LED light in the dashboard to show its status.
 
-Functions that query to Service API for Machin status
+Functions that query to Service API for Machine status
 If the LED is Green = Disguise Machine is "ready" If the LED is Red = Disguise Status is "offline"
 
 If Disguise software is running it then checks the session API and report back 
