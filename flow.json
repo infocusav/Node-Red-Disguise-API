@@ -15,7 +15,7 @@
         "method": "GET",
         "ret": "obj",
         "paytoqs": "body",
-        "url": "http://192.168.13.101/api/session/status/health",
+        "url": "http://192.168.13.101/api/service/system/detectsystems",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -24,12 +24,10 @@
         "senderr": false,
         "headers": [],
         "x": 450,
-        "y": 120,
+        "y": 140,
         "wires": [
             [
-                "525851e45102a79f",
-                "15288b4321ff54a7",
-                "acfa1cc36df5b8ed"
+                "728663bd590a9dee"
             ]
         ]
     },
@@ -47,85 +45,51 @@
                 "vt": "str"
             }
         ],
-        "repeat": "3",
+        "repeat": "30",
         "crontab": "",
         "once": true,
         "onceDelay": "1",
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 120,
+        "x": 130,
+        "y": 280,
         "wires": [
             [
-                "106a5116146ffee4"
+                "ac55e85e7e05bb5c"
             ]
         ]
-    },
-    {
-        "id": "15288b4321ff54a7",
-        "type": "debug",
-        "z": "ead061f8ea5ed2db",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 790,
-        "y": 120,
-        "wires": []
     },
     {
         "id": "525851e45102a79f",
         "type": "function",
         "z": "ead061f8ea5ed2db",
         "name": "function 1",
-        "func": "\nvar trueMsg = { payload: true };\nvar falseMsg = { payload: false };\n\n\nif (msg.payload.result[0].status.states[0].severity.status==\"ready\")\n{\n    return falseMsg; \n}\nelse{\n        return trueMsg; \n\n}\n",
+        "func": "var trueMsg = { payload: true };\nvar falseMsg = { payload: false };\n\n\nif (msg.payload.result[0].isDesignerRunning == true)\n{\n    return trueMsg; \n\n}\nelse{\n        return falseMsg; \n\n}\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 480,
-        "y": 280,
+        "x": 740,
+        "y": 240,
         "wires": [
             [
                 "da1bb636d38701c9",
-                "4c880fa8a974177f"
+                "5d50540c6df45d64"
             ]
         ]
-    },
-    {
-        "id": "4c880fa8a974177f",
-        "type": "debug",
-        "z": "ead061f8ea5ed2db",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 710,
-        "y": 340,
-        "wires": []
     },
     {
         "id": "da1bb636d38701c9",
         "type": "ui_led",
         "z": "ead061f8ea5ed2db",
-        "order": 6,
+        "order": 11,
         "group": "5eaca1a3.15e28",
-        "width": "4",
-        "height": "1",
-        "label": "Server 101 Alive",
+        "width": 4,
+        "height": 1,
+        "label": "Server 101 Running",
         "labelPlacement": "left",
         "labelAlignment": "left",
         "colorForValue": [
@@ -143,9 +107,9 @@
         "allowColorForValueInMessage": false,
         "shape": "circle",
         "showGlow": true,
-        "name": "Server 101 Alive",
-        "x": 760,
-        "y": 280,
+        "name": "Server 101 Running",
+        "x": 1000,
+        "y": 240,
         "wires": []
     },
     {
@@ -153,19 +117,19 @@
         "type": "function",
         "z": "ead061f8ea5ed2db",
         "name": "function 2",
-        "func": "\nvar trueMsg = { payload: true };\nvar falseMsg = { payload: false };\nvar warningMsg = { payload: 'warning' };\n\n\nif (msg.payload.result[1].status.states[0].severity==\"ready\")\n{\n    return trueMsg; \n}\nelse if(msg.payload.result[1].status.states[0].severity==\"warning\")\n{\n    return warningMsg; \n\n}\nelse\n{\n    return falseMsg;\n}\n",
+        "func": "var trueMsg = { payload: true };\nvar falseMsg = { payload: false };\n\n\nif (msg.payload.result[1].isDesignerRunning == true)\n{\n    return trueMsg; \n}\nelse{\n        return falseMsg; \n\n}\n\n// var trueMsg = { payload: true };\n// var falseMsg = { payload: false };\n// var warningMsg = { payload: 'warning' };\n\n\n// if (msg.payload.result[1].status.states[0].severity==\"ready\")\n// {\n//     return trueMsg; \n// }\n// else if(msg.payload.result[1].status.states[0].severity==\"warning\")\n// {\n//     return warningMsg; \n\n// }\n// else\n// {\n//     return falseMsg;\n// }\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 480,
-        "y": 400,
+        "x": 740,
+        "y": 340,
         "wires": [
             [
                 "97622c8ef52ba09e",
-                "b0cf28243708563e"
+                "948e21a88b031826"
             ]
         ]
     },
@@ -173,11 +137,11 @@
         "id": "97622c8ef52ba09e",
         "type": "ui_led",
         "z": "ead061f8ea5ed2db",
-        "order": 6,
+        "order": 14,
         "group": "5eaca1a3.15e28",
-        "width": "4",
-        "height": "1",
-        "label": "Server 102 Alive",
+        "width": 4,
+        "height": 1,
+        "label": "Server 102 Running",
         "labelPlacement": "left",
         "labelAlignment": "left",
         "colorForValue": [
@@ -200,27 +164,864 @@
         "allowColorForValueInMessage": false,
         "shape": "circle",
         "showGlow": true,
-        "name": "Server 102 Alive",
-        "x": 720,
-        "y": 400,
+        "name": "Server 102 Running",
+        "x": 1000,
+        "y": 340,
         "wires": []
     },
     {
-        "id": "b0cf28243708563e",
+        "id": "1db65947bf635dea",
+        "type": "function",
+        "z": "ead061f8ea5ed2db",
+        "name": "function 3",
+        "func": "var trueMsg = { payload: true };\nvar falseMsg = { payload: false };\n\n\nif (msg.payload.result[2].isDesignerRunning == true)\n{\n    return trueMsg; \n}\nelse{\n        return falseMsg; \n\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 420,
+        "wires": [
+            [
+                "8fdc32e26a238b72",
+                "257c40d66398bbe6"
+            ]
+        ]
+    },
+    {
+        "id": "8fdc32e26a238b72",
+        "type": "ui_led",
+        "z": "ead061f8ea5ed2db",
+        "order": 17,
+        "group": "5eaca1a3.15e28",
+        "width": 4,
+        "height": 1,
+        "label": "Server 103 Running",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#ff9500",
+                "value": "warning",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Server 103 Running",
+        "x": 1000,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "d446e61a50178644",
+        "type": "inject",
+        "z": "ead061f8ea5ed2db",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "192.168.13.101",
+        "payloadType": "str",
+        "x": 160,
+        "y": 60,
+        "wires": [
+            [
+                "604c7cec04e0ee41"
+            ]
+        ]
+    },
+    {
+        "id": "604c7cec04e0ee41",
+        "type": "function",
+        "z": "ead061f8ea5ed2db",
+        "name": "Store Host",
+        "func": "flow.set(\"Disguise1\",msg.payload)\nreturn\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ac55e85e7e05bb5c",
+        "type": "function",
+        "z": "ead061f8ea5ed2db",
+        "name": "function 4",
+        "func": "msg.url = \"http://\" + flow.get(\"Disguise1\") + \"/api/service/system/detectsystems\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 340,
+        "wires": [
+            [
+                "8b2699fd00a2ece8"
+            ]
+        ]
+    },
+    {
+        "id": "8b2699fd00a2ece8",
+        "type": "http request",
+        "z": "ead061f8ea5ed2db",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "body",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 450,
+        "y": 340,
+        "wires": [
+            [
+                "525851e45102a79f",
+                "acfa1cc36df5b8ed",
+                "1db65947bf635dea",
+                "728663bd590a9dee"
+            ]
+        ]
+    },
+    {
+        "id": "728663bd590a9dee",
         "type": "debug",
         "z": "ead061f8ea5ed2db",
-        "name": "debug 3",
+        "name": "debug 1",
         "active": true,
         "tosidebar": true,
-        "console": true,
+        "console": false,
         "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
+        "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 730,
-        "y": 520,
+        "x": 1040,
+        "y": 120,
         "wires": []
+    },
+    {
+        "id": "e2c238934f7b1d03",
+        "type": "debug",
+        "z": "ead061f8ea5ed2db",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1420,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "5d50540c6df45d64",
+        "type": "switch",
+        "z": "ead061f8ea5ed2db",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1150,
+        "y": 300,
+        "wires": [
+            [
+                "c0ffc7aabd374eb8"
+            ],
+            [
+                "57c2b43ec18008d3"
+            ]
+        ]
+    },
+    {
+        "id": "c0ffc7aabd374eb8",
+        "type": "function",
+        "z": "ead061f8ea5ed2db",
+        "name": "function 5",
+        "func": "msg.url = \"http://\" + flow.get(\"Disguise1\") + \"/api/session/status/health\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1320,
+        "y": 300,
+        "wires": [
+            [
+                "57e250a1e70cc6dc"
+            ]
+        ]
+    },
+    {
+        "id": "57e250a1e70cc6dc",
+        "type": "http request",
+        "z": "ead061f8ea5ed2db",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "body",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1510,
+        "y": 300,
+        "wires": [
+            [
+                "8a6cbe3068636703",
+                "e2c238934f7b1d03"
+            ]
+        ]
+    },
+    {
+        "id": "8a6cbe3068636703",
+        "type": "function",
+        "z": "ead061f8ea5ed2db",
+        "name": "function 6",
+        "func": "var trueMsg = { payload: true };\nvar falseMsg = { payload: false };\nvar warningMsg = { payload: 'warning' };\n\n\nif (msg.payload.result[0].status.states[0].severity==\"ready\")\n{\n    return trueMsg; \n}\nelse if(msg.payload.result[0].status.states[0].severity==\"warning\")\n{\n    return warningMsg; \n\n}\nelse\n{\n    return falseMsg;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1680,
+        "y": 300,
+        "wires": [
+            [
+                "c499013f84d80d33",
+                "e2c238934f7b1d03"
+            ]
+        ]
+    },
+    {
+        "id": "c499013f84d80d33",
+        "type": "ui_led",
+        "z": "ead061f8ea5ed2db",
+        "order": 12,
+        "group": "5eaca1a3.15e28",
+        "width": 4,
+        "height": 1,
+        "label": "Server 101 Disguise Status",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#ff9500",
+                "value": "warning",
+                "valueType": "str"
+            },
+            {
+                "color": "#c9c9c9",
+                "value": "inactive",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Server 101 Disguise Status",
+        "x": 1900,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "948e21a88b031826",
+        "type": "switch",
+        "z": "ead061f8ea5ed2db",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1150,
+        "y": 380,
+        "wires": [
+            [
+                "71af0a95852ec52d"
+            ],
+            [
+                "5c670ae4b1b8220d"
+            ]
+        ]
+    },
+    {
+        "id": "71af0a95852ec52d",
+        "type": "function",
+        "z": "ead061f8ea5ed2db",
+        "name": "function 7",
+        "func": "msg.url = \"http://\" + flow.get(\"Disguise1\") + \"/api/session/status/health\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1320,
+        "y": 380,
+        "wires": [
+            [
+                "5d79049e09f99515"
+            ]
+        ]
+    },
+    {
+        "id": "5d79049e09f99515",
+        "type": "http request",
+        "z": "ead061f8ea5ed2db",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "body",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1510,
+        "y": 380,
+        "wires": [
+            [
+                "9e863cae451334ae"
+            ]
+        ]
+    },
+    {
+        "id": "9e863cae451334ae",
+        "type": "function",
+        "z": "ead061f8ea5ed2db",
+        "name": "function 8",
+        "func": "var trueMsg = { payload: true };\nvar falseMsg = { payload: false };\nvar warningMsg = { payload: 'warning' };\n\n\nif (msg.payload.result[1].status.states[0].severity==\"ready\")\n{\n    return trueMsg; \n}\nelse if(msg.payload.result[1].status.states[0].severity==\"warning\")\n{\n    return warningMsg; \n\n}\nelse\n{\n    return falseMsg;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1680,
+        "y": 380,
+        "wires": [
+            [
+                "13750c03846b9291"
+            ]
+        ]
+    },
+    {
+        "id": "13750c03846b9291",
+        "type": "ui_led",
+        "z": "ead061f8ea5ed2db",
+        "order": 15,
+        "group": "5eaca1a3.15e28",
+        "width": 4,
+        "height": 1,
+        "label": "Server 102 Disguise Status",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#ff9500",
+                "value": "warning",
+                "valueType": "str"
+            },
+            {
+                "color": "#c9c9c9",
+                "value": "inactive",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Server 102 Disguise Status",
+        "x": 1900,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "257c40d66398bbe6",
+        "type": "switch",
+        "z": "ead061f8ea5ed2db",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1150,
+        "y": 460,
+        "wires": [
+            [
+                "c0bbd5ce9777733c"
+            ],
+            [
+                "89c59190e6e3bf42"
+            ]
+        ]
+    },
+    {
+        "id": "c0bbd5ce9777733c",
+        "type": "function",
+        "z": "ead061f8ea5ed2db",
+        "name": "function 9",
+        "func": "msg.url = \"http://\" + flow.get(\"Disguise1\") + \"/api/session/status/health\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1320,
+        "y": 460,
+        "wires": [
+            [
+                "16936dbecdfceaec"
+            ]
+        ]
+    },
+    {
+        "id": "16936dbecdfceaec",
+        "type": "http request",
+        "z": "ead061f8ea5ed2db",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "body",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1510,
+        "y": 460,
+        "wires": [
+            [
+                "d3e2e546c1e28837"
+            ]
+        ]
+    },
+    {
+        "id": "d3e2e546c1e28837",
+        "type": "function",
+        "z": "ead061f8ea5ed2db",
+        "name": "function 10",
+        "func": "var trueMsg = { payload: true };\nvar falseMsg = { payload: false };\nvar warningMsg = { payload: 'warning' };\n\n\nif (msg.payload.result[2].status.states[0].severity==\"ready\")\n{\n    return trueMsg; \n}\nelse if(msg.payload.result[2].status.states[0].severity==\"warning\")\n{\n    return warningMsg; \n\n}\nelse\n{\n    return falseMsg;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1680,
+        "y": 460,
+        "wires": [
+            [
+                "0912317c1b0fb1ea"
+            ]
+        ]
+    },
+    {
+        "id": "0912317c1b0fb1ea",
+        "type": "ui_led",
+        "z": "ead061f8ea5ed2db",
+        "order": 18,
+        "group": "5eaca1a3.15e28",
+        "width": 4,
+        "height": 1,
+        "label": "Server 103 Disguise Status",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#ff9500",
+                "value": "warning",
+                "valueType": "str"
+            },
+            {
+                "color": "#c9c9c9",
+                "value": "inactive",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Server 103 Disguise Status",
+        "x": 1900,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "57c2b43ec18008d3",
+        "type": "change",
+        "z": "ead061f8ea5ed2db",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "inactive",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1340,
+        "y": 340,
+        "wires": [
+            [
+                "c499013f84d80d33"
+            ]
+        ]
+    },
+    {
+        "id": "5c670ae4b1b8220d",
+        "type": "change",
+        "z": "ead061f8ea5ed2db",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "inactive",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1340,
+        "y": 420,
+        "wires": [
+            [
+                "13750c03846b9291"
+            ]
+        ]
+    },
+    {
+        "id": "89c59190e6e3bf42",
+        "type": "change",
+        "z": "ead061f8ea5ed2db",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "inactive",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1340,
+        "y": 500,
+        "wires": [
+            [
+                "0912317c1b0fb1ea"
+            ]
+        ]
+    },
+    {
+        "id": "2293e36e2c3e2343",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "5eaca1a3.15e28",
+        "order": 7,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "9e74952cf766d745",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "5eaca1a3.15e28",
+        "order": 9,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "34973562c1561481",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "5eaca1a3.15e28",
+        "order": 10,
+        "width": 12,
+        "height": 1
+    },
+    {
+        "id": "df15bc970f997f27",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "5eaca1a3.15e28",
+        "order": 13,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "5953eded89ee5104",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "5eaca1a3.15e28",
+        "order": 16,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "c03b8c6b9f8ec461",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "5eaca1a3.15e28",
+        "order": 19,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "d7bdc1f50bc56227",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "a6b1a8510b88e09b",
+        "order": 2,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "40f56c29606f89f3",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "a6b1a8510b88e09b",
+        "order": 7,
+        "width": 8,
+        "height": 1
+    },
+    {
+        "id": "d9e9872f0c860018",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "a6b1a8510b88e09b",
+        "order": 9,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "aea2ee4cbf550bdd",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "a6b1a8510b88e09b",
+        "order": 14,
+        "width": 8,
+        "height": 1
+    },
+    {
+        "id": "6528f55cae7f00c7",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "a6b1a8510b88e09b",
+        "order": 16,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "e27517173af44114",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "a6b1a8510b88e09b",
+        "order": 21,
+        "width": 8,
+        "height": 1
+    },
+    {
+        "id": "f67327782779a9a0",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "a6b1a8510b88e09b",
+        "order": 23,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "a77d11c7163b9309",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "a61c1d23.04fe3",
+        "order": 2,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "48983250b1a99463",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "a61c1d23.04fe3",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "021ed553b9964375",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "a61c1d23.04fe3",
+        "order": 5,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "be779f2a88288fd1",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "a61c1d23.04fe3",
+        "order": 6,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "8116235dab4dedde",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "a61c1d23.04fe3",
+        "order": 8,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "68657de7b23d1570",
+        "type": "ui_spacer",
+        "z": "ead061f8ea5ed2db",
+        "name": "spacer",
+        "group": "a61c1d23.04fe3",
+        "order": 9,
+        "width": 4,
+        "height": 1
     },
     {
         "id": "5eaca1a3.15e28",
@@ -229,8 +1030,30 @@
         "tab": "2806402b.f11e7",
         "order": 1,
         "disp": true,
-        "width": 4,
-        "collapse": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a6b1a8510b88e09b",
+        "type": "ui_group",
+        "name": "Brompton Processor",
+        "tab": "2806402b.f11e7",
+        "order": 1,
+        "disp": true,
+        "width": 8,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a61c1d23.04fe3",
+        "type": "ui_group",
+        "name": "Latency Guage",
+        "tab": "2806402b.f11e7",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
         "className": ""
     },
     {
